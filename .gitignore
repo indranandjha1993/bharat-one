@@ -12,4 +12,6 @@ app/build/
 .kotlin/
 *.keystore
 !debug.keystore
+*.jks
+keystore.properties
 *.apk

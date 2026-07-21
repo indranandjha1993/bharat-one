@@ -65,8 +65,10 @@ Note: couldn't sever the emulator's NAT (production image, no root) so live netw
 - ⬜ Simple schema versioning
 
 ## Phase 5 — Release to Amazon Appstore ⬜
+- ✅ Release signing config (keystore-driven, keystore untracked) + `docs/RELEASE.md` guide
+- ✅ Content-rights request drafted (`docs/PRASAR_BHARATI_REQUEST.md`) — ready to send
 - ⬜ Real app icon + banner + screenshots + store copy
-- ⬜ Remove all `test: true` channels
+- ⬜ Remove all `test: true` channels (hidden from UI; strip from manifest before release)
 - ⬜ Release signing config (`keystore`, not committed)
 - ⬜ Amazon Developer account + app submission
 - ⬜ Content-rights documentation ready for review (public-broadcaster provenance)
