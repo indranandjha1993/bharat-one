@@ -24,10 +24,13 @@ Prasar Bharati's official Live TV portal (`prasarbharati.gov.in/live-tv/`) now r
 2. **Government NIC webcast (cleanest, use now).** `webcast.gov.in/lstvlive/` is a public government webcast of Sansad TV. Genuinely public — safe to point the player at today. Limited to parliamentary content.
 3. **Publicly-reachable DD HLS endpoints (dev only, unstable).** DD channels have HLS endpoints on Prasar Bharati's CDN that community projects track. Reachable but **not licensed to us and they break often** (open iptv-org issue literally titled "Broken: Free to air DD channels of India"). Use only with `verified: false` for local dev; never the basis for a shipped app's reliability.
 
-### Getting the genuine feed (Phase-1 action)
-- Prasar Bharati: contact via `prasarbharati.gov.in` (DG:Doordarshan / WAVES content team). Ask for: permission + official HLS endpoints for DD News, DD India, and the regional bouquet for redistribution in a free Fire TV app.
-- Sansad TV: NIC webcast is already public; still worth a courtesy note.
-- Keep all correspondence + any grant in `docs/` for the Amazon review packet.
+### The genuine feed — fire-and-forget, NOT a launch gate (decided 2026-07-21)
+Prasar Bharati approval is a **de-risker, not a prerequisite**. Reasoning:
+- Their mandate is *maximising reach* of public content; unlike private channels they don't chase free redistributors of DD, so enforcement risk is **low** (not zero — DD is still copyrighted).
+- The real gatekeeper is **Amazon Appstore review**, answered with "public-broadcaster & government free-to-air only, no private/YouTube content".
+- The official feed's main value is **stream stability** (today's community feeds break) plus a rights letter that makes review bulletproof.
+
+**Decision:** send the request (`docs/PRASAR_BHARATI_REQUEST.md`) as a low-effort parallel and **launch without waiting**; treat any reply as upside. Keep the app **free** — monetising someone else's broadcast without permission is what flips both legal and Amazon risk. Sansad TV (NIC webcast) is already public government content, the cleanest of all. Keep any correspondence/grant in `docs/` for the review packet.
 
 ---
 

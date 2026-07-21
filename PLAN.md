@@ -78,8 +78,13 @@ Note: couldn't sever the emulator's NAT (production image, no root) so live netw
 
 ---
 
-## Parallel track — the genuine feed (do early, it has lead time)
-Requesting official access from Prasar Bharati is a form-and-wait process. Start it during Phase 1 so it's ready by Phase 5. Draft/notes in `docs/CONTENT_SOURCES.md`.
+## Parallel track — the genuine feed (fire-and-forget, NOT a launch gate)
+**Decided 2026-07-21:** don't block launch on Prasar Bharati approval (slow govt process, may be ignored). Send the request (`docs/PRASAR_BHARATI_REQUEST.md`) as a low-effort parallel, launch without waiting, treat a reply as upside. Enforcement risk on free public-broadcaster content is low; the real work is **stream reliability** + a clean **store listing**. Keep the app **free** — monetising flips the risk. Full reasoning in `docs/CONTENT_SOURCES.md`.
+
+### Refocused near-term priorities (in place of "wait for approval")
+1. **Stream reliability** — dead-stream handling is in; add a hosted remote manifest (Phase 4) so broken URLs can be swapped without an app update.
+2. **Store listing** — real icon + banner, screenshots, copy, signing (Phase 5).
+3. **Send the request** — 10 min, then forget it.
 
 ## Open decisions
 - App name: "Bharat One" working — confirm before Phase 5 branding.
