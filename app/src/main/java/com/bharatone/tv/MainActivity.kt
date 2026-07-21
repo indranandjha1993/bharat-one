@@ -20,7 +20,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val channels = ChannelRepository(applicationContext).load()
-        val playable = channels.filter { it.isPlayable }
+        val playable = channels.filter { it.isPlayable && !it.test }
         val preferences = Preferences(applicationContext)
 
         setContent {

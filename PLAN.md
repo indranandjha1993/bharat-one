@@ -38,11 +38,12 @@ This is the "wow" the whole project is about.
 - ✅ Smooth focus (scale 1.06 + saffron border + glow); fixed header with rows scrolling under it
 - ✅ Custom player overlay: LIVE bug + channel name, "Tuning in…" / "off air" states
 - ✅ D-pad channel up/down inside the player (surf without leaving playback)
-- ⬜ Hero/spotlight band (optional — header + tiles already carry the identity)
+- ✅ **Cinematic Spotlight**: focus-driven hero, aurora gradient-mesh background, live clock + count, glass filter rail
+- ✅ **Easy filtering** by genre and by language (each language chip shows its own script); hero + rows update instantly
 - ⬜ Bundle a display typeface (Roboto for now; must be a bundled font — no Google Fonts, since Fire TV lacks Play Services)
 - ⬜ Real app icon + TV banner art (placeholders in place)
 
-**Exit criteria:** it looks and feels like a flagship OTT app, not a demo. Verified on emulator: home + player both look premium.
+**Exit criteria:** it looks and feels like a flagship OTT app, not a demo. Verified on emulator: Cinematic Spotlight home, language/genre filtering, and playback all working.
 
 ## Phase 3 — Robustness 🚧
 - ✅ Network loss + reconnect handling (5 backoff retries → "Reconnecting", then "off air" with OK-to-retry). Verified with a dead-URL stream: 6 attempts logged, OK triggers a fresh attempt, good URL recovers.

@@ -14,6 +14,11 @@ object BrandColor {
     val TextMuted = Color(0xFFA79FB0)
     val Saffron = Color(0xFFFF9933)
     val IndiaGreen = Color(0xFF138808)
+
+    // Ambient "aurora" background glows
+    val GlowSaffron = Color(0xFFF4A81D)
+    val GlowTeal = Color(0xFF1FB6A8)
+    val GlowMagenta = Color(0xFF7A3B8F)
 }
 
 private val tileGradients = listOf(
