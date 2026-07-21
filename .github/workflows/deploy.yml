@@ -1,15 +1,13 @@
 name: Deploy to Amazon Appstore
 
-# Auto-submits a new build for Amazon review on every push to main.
-# Docs-only changes are skipped. To make it less chatty, switch the trigger to
-# tags (e.g. `on: push: tags: ['v*']`) instead of branches.
+# Runs only AFTER the CI workflow succeeds on main, then auto-submits a new build
+# for Amazon review. (CI itself skips docs-only pushes, so those don't deploy.)
+# Prefer tags? Trigger CI on tags and this still gates on it.
 on:
-  push:
+  workflow_run:
+    workflows: [ "CI" ]
+    types: [ completed ]
     branches: [ main ]
-    paths-ignore:
-      - '**.md'
-      - 'docs/**'
-      - '.github/**'
   workflow_dispatch:
 
 # Never run two submissions at once (Amazon allows one open edit at a time).
@@ -19,11 +17,14 @@ concurrency:
 
 jobs:
   deploy:
+    # Only deploy when the triggering CI run passed (manual dispatch always runs).
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0   # full history so the commit count is a stable versionCode
+          ref: ${{ github.event.workflow_run.head_sha || github.ref }}
 
       - uses: actions/setup-java@v4
         with:

@@ -50,8 +50,9 @@ For `release.yml` to sign the build:
 Cut a release: `git tag v0.1.0 && git push origin v0.1.0`.
 
 ### Continuous deployment to the Amazon Appstore
-`deploy.yml` auto-submits a new build for review on every push to `main` (docs-only
-changes skipped). It builds a signed APK with an auto-incrementing versionCode
+`deploy.yml` runs **only after the CI workflow succeeds** on `main` (via `workflow_run`),
+then auto-submits a new build for review. CI skips docs-only pushes, so those never
+deploy. It builds a signed APK with an auto-incrementing versionCode
 (from the commit count) and runs `scripts/amazon_submit.sh`, which drives Amazon's
 **App Submission API**: get token → open/create an edit → replace the APK →
 validate → commit (submit for review).
