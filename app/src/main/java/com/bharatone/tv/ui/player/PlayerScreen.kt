@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -41,22 +42,30 @@ import androidx.media3.common.MediaItem
 import androidx.media3.common.PlaybackException
 import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
+import androidx.media3.exoplayer.DefaultLoadControl
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.PlayerView
 import androidx.tv.material3.Text
 import com.bharatone.tv.data.Channel
 import com.bharatone.tv.ui.theme.BrandColor
+import kotlinx.coroutines.delay
 
-private enum class PlaybackStatus { Tuning, Playing, OffAir }
+private enum class PlaybackStatus { Tuning, Playing, Reconnecting, OffAir }
+
+private const val MAX_RETRIES = 5
 
 @OptIn(UnstableApi::class)
 @Composable
 fun PlayerScreen(channel: Channel, playlist: List<Channel>, onSwitch: (Channel) -> Unit) {
     val context = LocalContext.current
     var status by remember(channel.id) { mutableStateOf(PlaybackStatus.Tuning) }
+    var attempt by remember(channel.id) { mutableIntStateOf(0) }
 
     val player = remember(channel.id) {
-        ExoPlayer.Builder(context).build().apply {
+        val loadControl = DefaultLoadControl.Builder()
+            .setBufferDurationsMs(15_000, 50_000, 1_500, 3_000)
+            .build()
+        ExoPlayer.Builder(context).setLoadControl(loadControl).build().apply {
             setMediaItem(MediaItem.fromUri(channel.streamUrl))
             playWhenReady = true
             prepare()
@@ -66,11 +75,15 @@ fun PlayerScreen(channel: Channel, playlist: List<Channel>, onSwitch: (Channel) 
     DisposableEffect(channel.id) {
         val listener = object : Player.Listener {
             override fun onPlaybackStateChanged(state: Int) {
-                if (state == Player.STATE_READY) status = PlaybackStatus.Playing
+                if (state == Player.STATE_READY) {
+                    status = PlaybackStatus.Playing
+                    attempt = 0
+                }
             }
 
             override fun onPlayerError(error: PlaybackException) {
-                status = PlaybackStatus.OffAir
+                attempt += 1
+                status = if (attempt <= MAX_RETRIES) PlaybackStatus.Reconnecting else PlaybackStatus.OffAir
             }
         }
         player.addListener(listener)
@@ -80,9 +93,23 @@ fun PlayerScreen(channel: Channel, playlist: List<Channel>, onSwitch: (Channel) 
         }
     }
 
+    // Backoff-driven reconnect: each failure bumps `attempt`, which re-runs this effect.
+    LaunchedEffect(channel.id, attempt) {
+        if (attempt in 1..MAX_RETRIES) {
+            delay(1200L * attempt)
+            player.prepare()
+        }
+    }
+
     val focusRequester = remember { FocusRequester() }
     LaunchedEffect(Unit) { runCatching { focusRequester.requestFocus() } }
     val index = playlist.indexOfFirst { it.id == channel.id }
+
+    fun retry() {
+        attempt = 0
+        status = PlaybackStatus.Tuning
+        player.prepare()
+    }
 
     Box(
         modifier = Modifier
@@ -91,13 +118,20 @@ fun PlayerScreen(channel: Channel, playlist: List<Channel>, onSwitch: (Channel) 
             .focusRequester(focusRequester)
             .focusable()
             .onPreviewKeyEvent { event ->
-                if (event.type != KeyEventType.KeyDown || index < 0 || playlist.isEmpty()) return@onPreviewKeyEvent false
+                if (event.type != KeyEventType.KeyDown) return@onPreviewKeyEvent false
                 when (event.key) {
                     Key.DirectionUp -> {
-                        onSwitch(playlist[(index - 1 + playlist.size) % playlist.size]); true
+                        if (index >= 0 && playlist.isNotEmpty()) {
+                            onSwitch(playlist[(index - 1 + playlist.size) % playlist.size]); true
+                        } else false
                     }
                     Key.DirectionDown -> {
-                        onSwitch(playlist[(index + 1) % playlist.size]); true
+                        if (index >= 0 && playlist.isNotEmpty()) {
+                            onSwitch(playlist[(index + 1) % playlist.size]); true
+                        } else false
+                    }
+                    Key.DirectionCenter, Key.Enter -> {
+                        if (status == PlaybackStatus.OffAir) { retry(); true } else false
                     }
                     else -> false
                 }
@@ -116,7 +150,8 @@ fun PlayerScreen(channel: Channel, playlist: List<Channel>, onSwitch: (Channel) 
 
         when (status) {
             PlaybackStatus.Tuning -> CenterMessage("Tuning in to ${channel.name}…")
-            PlaybackStatus.OffAir -> CenterMessage("${channel.name} is off air right now.\nPress Back to return.")
+            PlaybackStatus.Reconnecting -> CenterMessage("Reconnecting to ${channel.name}…")
+            PlaybackStatus.OffAir -> CenterMessage("${channel.name} is off air.\nPress OK to retry · Back to browse.")
             PlaybackStatus.Playing -> ChannelBug(
                 name = channel.name,
                 modifier = Modifier.align(Alignment.TopStart).padding(28.dp),
