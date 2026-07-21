@@ -43,7 +43,7 @@ import com.bharatone.tv.ui.theme.categoryEyebrow
 import com.bharatone.tv.ui.theme.languageGlyph
 import com.bharatone.tv.ui.theme.tileBrush
 
-private val CATEGORY_ORDER = listOf("News", "National", "Sansad", "Regional", "Test")
+private val CATEGORY_ORDER = listOf("News", "National", "Sansad", "Learning", "Regional", "Test")
 private val TileShape = RoundedCornerShape(16.dp)
 
 @Composable

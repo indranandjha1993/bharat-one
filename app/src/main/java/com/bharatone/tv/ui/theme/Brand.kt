@@ -32,13 +32,24 @@ fun tileBrush(id: String): Brush =
 fun languageGlyph(language: String): String = when (language) {
     "Hindi" -> "हिं"
     "English" -> "Aa"
+    "Urdu" -> "اُ"
     "Bengali" -> "বাং"
     "Marathi" -> "म"
     "Kannada" -> "ಕ"
     "Telugu" -> "తె"
     "Malayalam" -> "മ"
     "Tamil" -> "த"
-    "Urdu" -> "اُ"
+    "Assamese" -> "অ"
+    "Gujarati" -> "ગુ"
+    "Konkani" -> "को"
+    "Kashmiri" -> "کا"
+    "Manipuri" -> "মৈ"
+    "Khasi" -> "Kh"
+    "Mizo" -> "Mi"
+    "Odia" -> "ଓ"
+    "Punjabi" -> "ਪੰ"
+    "Rajasthani" -> "रा"
+    "Educational" -> "ज्ञ"
     else -> "●"
 }
 
@@ -46,6 +57,7 @@ fun categoryEyebrow(category: String): Pair<String, String> = when (category) {
     "News" -> "समाचार" to "NEWS"
     "National" -> "राष्ट्रीय" to "NATIONAL"
     "Sansad" -> "संसद" to "PARLIAMENT"
+    "Learning" -> "ज्ञान" to "LEARNING"
     "Regional" -> "क्षेत्रीय" to "REGIONAL"
     "Test" -> "परीक्षण" to "TEST"
     else -> category to category.uppercase()

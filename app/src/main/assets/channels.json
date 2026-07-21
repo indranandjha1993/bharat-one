@@ -1,138 +1,46 @@
 [
-  {
-    "id": "dd-news",
-    "name": "DD News",
-    "language": "Hindi",
-    "category": "News",
-    "streamUrl": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/0811cd8c37ca4c409d5385a6cd2fa18b/index.m3u8",
-    "source": "community",
-    "verified": false
-  },
-  {
-    "id": "dd-india",
-    "name": "DD India",
-    "language": "English",
-    "category": "News",
-    "streamUrl": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/ceda14583477426aa162a65392d8ea07/index.m3u8",
-    "source": "community",
-    "verified": false
-  },
-  {
-    "id": "dd-national",
-    "name": "DD National",
-    "language": "Hindi",
-    "category": "National",
-    "streamUrl": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/40492a64c1db4a1385ba1a397d357d3a/index.m3u8",
-    "source": "community",
-    "verified": false
-  },
-  {
-    "id": "dd-sports",
-    "name": "DD Sports",
-    "language": "Hindi",
-    "category": "National",
-    "streamUrl": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
-    "source": "community",
-    "verified": false
-  },
-  {
-    "id": "dd-kisan",
-    "name": "DD Kisan",
-    "language": "Hindi",
-    "category": "National",
-    "streamUrl": "https://cdn-6.pishow.tv/live/9/master.m3u8",
-    "source": "community",
-    "verified": false
-  },
-  {
-    "id": "dd-urdu",
-    "name": "DD Urdu",
-    "language": "Urdu",
-    "category": "National",
-    "streamUrl": "https://cdn-4.pishow.tv/live/8/master.m3u8",
-    "source": "community",
-    "verified": false
-  },
-  {
-    "id": "sansad-tv",
-    "name": "Sansad TV",
-    "language": "Hindi",
-    "category": "Sansad",
-    "streamUrl": "https://d2lk5u59tns74c.cloudfront.net/out/v1/fff8f20221d5456e8922e689d71dedc3/index.m3u8",
-    "source": "nic",
-    "verified": false
-  },
-  {
-    "id": "dd-bangla",
-    "name": "DD Bangla",
-    "language": "Bengali",
-    "category": "Regional",
-    "streamUrl": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/7ff57cc9046b4c188b51a0d506f36e7f/index.m3u8",
-    "source": "community",
-    "verified": false
-  },
-  {
-    "id": "dd-sahyadri",
-    "name": "DD Sahyadri",
-    "language": "Marathi",
-    "category": "Regional",
-    "streamUrl": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/66dcc3ebe182447ba42837e746cf0c7c/index.m3u8",
-    "source": "community",
-    "verified": false
-  },
-  {
-    "id": "dd-chandana",
-    "name": "DD Chandana",
-    "language": "Kannada",
-    "category": "Regional",
-    "streamUrl": "https://d2lk5u59tns74c.cloudfront.net/out/v1/0c980455d2fb4b69bcc6235745ee6039/index.m3u8",
-    "source": "community",
-    "verified": false
-  },
-  {
-    "id": "dd-saptagiri",
-    "name": "DD Saptagiri",
-    "language": "Telugu",
-    "category": "Regional",
-    "streamUrl": "https://d2lk5u59tns74c.cloudfront.net/out/v1/26e915d6d12b4a06822c5e33c088ed56/index.m3u8",
-    "source": "community",
-    "verified": false
-  },
-  {
-    "id": "dd-malayalam",
-    "name": "DD Malayalam",
-    "language": "Malayalam",
-    "category": "Regional",
-    "streamUrl": "https://d2lk5u59tns74c.cloudfront.net/out/v1/c313674ffced4c9a90f1bba436df2b9b/index.m3u8",
-    "source": "community",
-    "verified": false
-  },
-  {
-    "id": "dd-tamil",
-    "name": "DD Tamil",
-    "language": "Tamil",
-    "category": "Regional",
-    "streamUrl": "https://d2lk5u59tns74c.cloudfront.net/out/v1/abf46b14847e45499f4a47f3a9afe93d/index.m3u8",
-    "source": "community",
-    "verified": false
-  },
-  {
-    "id": "dd-bharati",
-    "name": "DD Bharati",
-    "language": "Hindi",
-    "category": "National",
-    "streamUrl": "",
-    "source": "prasar-bharati",
-    "verified": false
-  },
-  {
-    "id": "test-pattern",
-    "name": "Test Pattern",
-    "language": "Demo",
-    "category": "Test",
-    "streamUrl": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
-    "source": "test",
-    "verified": false,
-    "test": true
-  }
+  { "id": "dd-news", "name": "DD News", "language": "Hindi", "category": "News", "streamUrl": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/0811cd8c37ca4c409d5385a6cd2fa18b/index.m3u8", "source": "community", "verified": false },
+  { "id": "dd-india", "name": "DD India", "language": "English", "category": "News", "streamUrl": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/ceda14583477426aa162a65392d8ea07/index.m3u8", "source": "community", "verified": false },
+
+  { "id": "dd-national", "name": "DD National", "language": "Hindi", "category": "National", "streamUrl": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/40492a64c1db4a1385ba1a397d357d3a/index.m3u8", "source": "community", "verified": false },
+  { "id": "dd-sports", "name": "DD Sports", "language": "Hindi", "category": "National", "streamUrl": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8", "source": "community", "verified": false },
+  { "id": "dd-kisan", "name": "DD Kisan", "language": "Hindi", "category": "National", "streamUrl": "https://cdn-6.pishow.tv/live/9/master.m3u8", "source": "community", "verified": false },
+  { "id": "dd-urdu", "name": "DD Urdu", "language": "Urdu", "category": "National", "streamUrl": "https://cdn-4.pishow.tv/live/8/master.m3u8", "source": "community", "verified": false },
+  { "id": "dd-bharati", "name": "DD Bharati", "language": "Hindi", "category": "National", "streamUrl": "", "source": "prasar-bharati", "verified": false },
+
+  { "id": "sansad-tv", "name": "Sansad TV", "language": "Hindi", "category": "Sansad", "streamUrl": "https://playhls.media.nic.in/hls/live/lstv/lstv.m3u8", "source": "nic", "verified": false },
+  { "id": "sansad-tv-2", "name": "Sansad TV 2", "language": "Hindi", "category": "Sansad", "streamUrl": "https://d2lk5u59tns74c.cloudfront.net/out/v1/e4182054dce340da9e0ff38b6b3658a4/index.m3u8", "source": "community", "verified": false },
+
+  { "id": "gyan-darshan", "name": "Gyan Darshan", "language": "Educational", "category": "Learning", "streamUrl": "https://cdn-6.pishow.tv/live/14/master.m3u8", "source": "government", "verified": false },
+
+  { "id": "dd-bangla", "name": "DD Bangla", "language": "Bengali", "category": "Regional", "streamUrl": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/7ff57cc9046b4c188b51a0d506f36e7f/index.m3u8", "source": "community", "verified": false },
+  { "id": "dd-sahyadri", "name": "DD Sahyadri", "language": "Marathi", "category": "Regional", "streamUrl": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/66dcc3ebe182447ba42837e746cf0c7c/index.m3u8", "source": "community", "verified": false },
+  { "id": "dd-chandana", "name": "DD Chandana", "language": "Kannada", "category": "Regional", "streamUrl": "https://d2lk5u59tns74c.cloudfront.net/out/v1/0c980455d2fb4b69bcc6235745ee6039/index.m3u8", "source": "community", "verified": false },
+  { "id": "dd-saptagiri", "name": "DD Saptagiri", "language": "Telugu", "category": "Regional", "streamUrl": "https://d2lk5u59tns74c.cloudfront.net/out/v1/26e915d6d12b4a06822c5e33c088ed56/index.m3u8", "source": "community", "verified": false },
+  { "id": "dd-malayalam", "name": "DD Malayalam", "language": "Malayalam", "category": "Regional", "streamUrl": "https://d2lk5u59tns74c.cloudfront.net/out/v1/c313674ffced4c9a90f1bba436df2b9b/index.m3u8", "source": "community", "verified": false },
+  { "id": "dd-tamil", "name": "DD Tamil", "language": "Tamil", "category": "Regional", "streamUrl": "https://d2lk5u59tns74c.cloudfront.net/out/v1/abf46b14847e45499f4a47f3a9afe93d/index.m3u8", "source": "community", "verified": false },
+  { "id": "dd-yadagiri", "name": "DD Yadagiri", "language": "Telugu", "category": "Regional", "streamUrl": "https://cdn-1.pishow.tv/live/21/master.m3u8", "source": "community", "verified": false },
+  { "id": "dd-arunprabha", "name": "DD Arunprabha", "language": "Hindi", "category": "Regional", "streamUrl": "https://d2lk5u59tns74c.cloudfront.net/out/v1/308556d9fd1246adb479ef012a39bbfe/index.m3u8", "source": "community", "verified": false },
+  { "id": "dd-assam", "name": "DD Assam", "language": "Assamese", "category": "Regional", "streamUrl": "https://d2lk5u59tns74c.cloudfront.net/out/v1/d380bf5c167b4319a46cdd8204bc26b2/index.m3u8", "source": "community", "verified": false },
+  { "id": "dd-bihar", "name": "DD Bihar", "language": "Hindi", "category": "Regional", "streamUrl": "https://cdn-4.pishow.tv/live/35/master.m3u8", "source": "community", "verified": false },
+  { "id": "dd-chhattisgarh", "name": "DD Chhattisgarh", "language": "Hindi", "category": "Regional", "streamUrl": "https://cdn-1.pishow.tv/live/15/master.m3u8", "source": "community", "verified": false },
+  { "id": "dd-girnar", "name": "DD Girnar", "language": "Gujarati", "category": "Regional", "streamUrl": "https://d2lk5u59tns74c.cloudfront.net/out/v1/558fdb9aebb54bb5bbbf0ced03686148/index.m3u8", "source": "community", "verified": false },
+  { "id": "dd-goa", "name": "DD Goa", "language": "Konkani", "category": "Regional", "streamUrl": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/e5b9db1cc184406bb97159da2f120f91/index.m3u8", "source": "community", "verified": false },
+  { "id": "dd-haryana", "name": "DD Haryana", "language": "Hindi", "category": "Regional", "streamUrl": "https://d2lk5u59tns74c.cloudfront.net/out/v1/950fc69666474351bde0a32b9600c804/index.m3u8", "source": "community", "verified": false },
+  { "id": "dd-himachal", "name": "DD Himachal", "language": "Hindi", "category": "Regional", "streamUrl": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/afd2e335b0ba40eb9bdf1096118c6ede/index.m3u8", "source": "community", "verified": false },
+  { "id": "dd-jharkhand", "name": "DD Jharkhand", "language": "Hindi", "category": "Regional", "streamUrl": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/e8c3741f8c154d3185831f4e31777fb2/index.m3u8", "source": "community", "verified": false },
+  { "id": "dd-kashir", "name": "DD Kashir", "language": "Kashmiri", "category": "Regional", "streamUrl": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/8a59a828e80c49d0958925950cec0204/index.m3u8", "source": "community", "verified": false },
+  { "id": "dd-mp", "name": "DD Madhya Pradesh", "language": "Hindi", "category": "Regional", "streamUrl": "https://cdn-1.pishow.tv/live/31/master.m3u8", "source": "community", "verified": false },
+  { "id": "dd-manipur", "name": "DD Manipur", "language": "Manipuri", "category": "Regional", "streamUrl": "https://d2lk5u59tns74c.cloudfront.net/out/v1/8b75afc6576f450e8f554b6c877681d2/index.m3u8", "source": "community", "verified": false },
+  { "id": "dd-meghalaya", "name": "DD Meghalaya", "language": "Khasi", "category": "Regional", "streamUrl": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/4f81bc8d13dd49b484da35988abb8729/index.m3u8", "source": "community", "verified": false },
+  { "id": "dd-mizoram", "name": "DD Mizoram", "language": "Mizo", "category": "Regional", "streamUrl": "https://d2lk5u59tns74c.cloudfront.net/out/v1/eea48c6b61074052a2fa8532ff795ff1/index.m3u8", "source": "community", "verified": false },
+  { "id": "dd-nagaland", "name": "DD Nagaland", "language": "English", "category": "Regional", "streamUrl": "https://d2lk5u59tns74c.cloudfront.net/out/v1/29c92e0bef954a6d9b0908d1be29c1f0/index.m3u8", "source": "community", "verified": false },
+  { "id": "dd-odia", "name": "DD Odia", "language": "Odia", "category": "Regional", "streamUrl": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/ef4ea632b77a480ebd77106968aa99a9/index.m3u8", "source": "community", "verified": false },
+  { "id": "dd-punjabi", "name": "DD Punjabi", "language": "Punjabi", "category": "Regional", "streamUrl": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/da821c24a59d4e57960497aeaca8fb33/index.m3u8", "source": "community", "verified": false },
+  { "id": "dd-rajasthan", "name": "DD Rajasthan", "language": "Rajasthani", "category": "Regional", "streamUrl": "https://cdn-1.pishow.tv/live/34/master.m3u8", "source": "community", "verified": false },
+  { "id": "dd-tripura", "name": "DD Tripura", "language": "Bengali", "category": "Regional", "streamUrl": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/52b998e9510d41c29ad2ceca8ea3d849/index.m3u8", "source": "community", "verified": false },
+  { "id": "dd-up", "name": "DD Uttar Pradesh", "language": "Hindi", "category": "Regional", "streamUrl": "https://cdn-1.pishow.tv/live/36/master.m3u8", "source": "community", "verified": false },
+  { "id": "dd-uttarakhand", "name": "DD Uttarakhand", "language": "Hindi", "category": "Regional", "streamUrl": "https://cdn-1.pishow.tv/live/17/master.m3u8", "source": "community", "verified": false },
+
+  { "id": "test-pattern", "name": "Test Pattern", "language": "Demo", "category": "Test", "streamUrl": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8", "source": "test", "verified": false, "test": true }
 ]
