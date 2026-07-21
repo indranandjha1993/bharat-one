@@ -1,0 +1,84 @@
+name: Deploy to Amazon Appstore
+
+# Auto-submits a new build for Amazon review on every push to main.
+# Docs-only changes are skipped. To make it less chatty, switch the trigger to
+# tags (e.g. `on: push: tags: ['v*']`) instead of branches.
+on:
+  push:
+    branches: [ main ]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - '.github/**'
+  workflow_dispatch:
+
+# Never run two submissions at once (Amazon allows one open edit at a time).
+concurrency:
+  group: amazon-appstore-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # full history so the commit count is a stable versionCode
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: android-actions/setup-android@v3
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Derive version from commit count
+        run: |
+          N=$(git rev-list --count HEAD)
+          echo "APP_VERSION_CODE=$N" >> "$GITHUB_ENV"
+          echo "APP_VERSION_NAME=0.1.$N" >> "$GITHUB_ENV"
+
+      - name: Decode keystore
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+        run: echo "$KEYSTORE_BASE64" | base64 -d > release.jks
+
+      - name: Write keystore.properties
+        env:
+          STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: |
+          {
+            echo "storeFile=../release.jks"
+            echo "storePassword=$STORE_PASSWORD"
+            echo "keyAlias=$KEY_ALIAS"
+            echo "keyPassword=$KEY_PASSWORD"
+          } > keystore.properties
+
+      - name: Build signed release APK
+        run: |
+          chmod +x ./gradlew
+          ./gradlew assembleRelease --stacktrace
+
+      - name: Submit to Amazon Appstore
+        env:
+          AMAZON_CLIENT_ID: ${{ secrets.AMAZON_CLIENT_ID }}
+          AMAZON_CLIENT_SECRET: ${{ secrets.AMAZON_CLIENT_SECRET }}
+          AMAZON_APP_ID: ${{ secrets.AMAZON_APP_ID }}
+        run: |
+          if [ -z "$AMAZON_CLIENT_ID" ] || [ -z "$AMAZON_APP_ID" ]; then
+            echo "::notice::Amazon credentials not set yet — built the signed APK but skipping submit."
+            echo "Add AMAZON_CLIENT_ID / AMAZON_CLIENT_SECRET / AMAZON_APP_ID secrets to enable auto-submit."
+            exit 0
+          fi
+          chmod +x scripts/amazon_submit.sh
+          scripts/amazon_submit.sh app/build/outputs/apk/release/app-release.apk
+
+      - name: Upload signed APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release
+          path: app/build/outputs/apk/release/app-release.apk

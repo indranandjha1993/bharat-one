@@ -49,11 +49,35 @@ For `release.yml` to sign the build:
 
 Cut a release: `git tag v0.1.0 && git push origin v0.1.0`.
 
-### Amazon Appstore auto-submit (next integration)
-Amazon has a self-publishing **Appstore Submission API**. To wire it into `release.yml`:
-1. Create a **Login with Amazon security profile** → get `client_id` / `client_secret`; add as `AMAZON_CLIENT_ID` / `AMAZON_CLIENT_SECRET` secrets.
-2. Exchange them for an access token, then: create an edit → replace the APK → validate → commit the edit (submit for review).
-Until that's wired, upload the signed APK from the release artifact to the Appstore console by hand — it's one upload per version.
+### Continuous deployment to the Amazon Appstore
+`deploy.yml` auto-submits a new build for review on every push to `main` (docs-only
+changes skipped). It builds a signed APK with an auto-incrementing versionCode
+(from the commit count) and runs `scripts/amazon_submit.sh`, which drives Amazon's
+**App Submission API**: get token → open/create an edit → replace the APK →
+validate → commit (submit for review).
+
+**Important truths:**
+- "Deploy" = *submit for review*. Amazon reviews every version; it goes live after
+  approval (same-day to ~2 days). No store allows code live without review.
+- The **first submission is manual** (content rating + availability + submit in the
+  console). The API automates version *updates* after the app is live.
+- Every push triggers a review submission. To make it less chatty, change the
+  trigger in `deploy.yml` to tags (`on: push: tags: ['v*']`).
+
+**One-time setup:**
+1. **Create a Login with Amazon (LWA) security profile:** developer.amazon.com →
+   Login with Amazon → Create a Security Profile. Note the **Client ID** and
+   **Client Secret**. (This is what grants API access to the Appstore.)
+2. Add these repo secrets (in addition to the signing ones above):
+   | Secret | Value |
+   |---|---|
+   | `AMAZON_CLIENT_ID` | LWA security profile client id |
+   | `AMAZON_CLIENT_SECRET` | LWA security profile client secret |
+   | `AMAZON_APP_ID` | the app id from the console URL (`amzn1.devportal.mobileapp.…`) |
+3. Do the first submission by hand, then future pushes auto-submit updates.
+
+The submission script is based on the documented Submission API; watch the first
+CI run's logs and adjust endpoints if Amazon has changed anything.
 
 ## Notes
 - Fire OS is Android-based; the same APK targets Fire TV. Test on a real Fire Stick over ADB before submitting (see `CLAUDE.md`).

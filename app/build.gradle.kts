@@ -23,8 +23,9 @@ android {
         applicationId = "com.bharatone.tv"
         minSdk = 26
         targetSdk = 35
-        versionCode = 1
-        versionName = "0.1.0"
+        // CI sets these from the commit count so every submission has a higher versionCode.
+        versionCode = System.getenv("APP_VERSION_CODE")?.toIntOrNull() ?: 1
+        versionName = System.getenv("APP_VERSION_NAME") ?: "0.1.0"
     }
 
     signingConfigs {
