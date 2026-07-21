@@ -1,0 +1,129 @@
+[
+  {
+    "id": "dd-news",
+    "name": "DD News",
+    "language": "Hindi",
+    "category": "News",
+    "streamUrl": "https://m-c048-j2apps.s.llnwi.net/hls/0182.DDNews.in.m3u8",
+    "source": "community",
+    "verified": false
+  },
+  {
+    "id": "dd-india",
+    "name": "DD India",
+    "language": "English",
+    "category": "News",
+    "streamUrl": "",
+    "source": "prasar-bharati",
+    "verified": false
+  },
+  {
+    "id": "dd-national",
+    "name": "DD National",
+    "language": "Hindi",
+    "category": "National",
+    "streamUrl": "",
+    "source": "prasar-bharati",
+    "verified": false
+  },
+  {
+    "id": "dd-sports",
+    "name": "DD Sports",
+    "language": "Hindi",
+    "category": "National",
+    "streamUrl": "",
+    "source": "prasar-bharati",
+    "verified": false
+  },
+  {
+    "id": "dd-kisan",
+    "name": "DD Kisan",
+    "language": "Hindi",
+    "category": "National",
+    "streamUrl": "",
+    "source": "prasar-bharati",
+    "verified": false
+  },
+  {
+    "id": "dd-bharati",
+    "name": "DD Bharati",
+    "language": "Hindi",
+    "category": "National",
+    "streamUrl": "",
+    "source": "prasar-bharati",
+    "verified": false
+  },
+  {
+    "id": "sansad-tv",
+    "name": "Sansad TV",
+    "language": "Hindi",
+    "category": "Sansad",
+    "streamUrl": "",
+    "source": "nic",
+    "verified": false
+  },
+  {
+    "id": "dd-bangla",
+    "name": "DD Bangla",
+    "language": "Bengali",
+    "category": "Regional",
+    "streamUrl": "",
+    "source": "prasar-bharati",
+    "verified": false
+  },
+  {
+    "id": "dd-sahyadri",
+    "name": "DD Sahyadri",
+    "language": "Marathi",
+    "category": "Regional",
+    "streamUrl": "",
+    "source": "prasar-bharati",
+    "verified": false
+  },
+  {
+    "id": "dd-chandana",
+    "name": "DD Chandana",
+    "language": "Kannada",
+    "category": "Regional",
+    "streamUrl": "",
+    "source": "prasar-bharati",
+    "verified": false
+  },
+  {
+    "id": "dd-saptagiri",
+    "name": "DD Saptagiri",
+    "language": "Telugu",
+    "category": "Regional",
+    "streamUrl": "",
+    "source": "prasar-bharati",
+    "verified": false
+  },
+  {
+    "id": "dd-malayalam",
+    "name": "DD Malayalam",
+    "language": "Malayalam",
+    "category": "Regional",
+    "streamUrl": "",
+    "source": "prasar-bharati",
+    "verified": false
+  },
+  {
+    "id": "dd-podhigai",
+    "name": "DD Podhigai",
+    "language": "Tamil",
+    "category": "Regional",
+    "streamUrl": "",
+    "source": "prasar-bharati",
+    "verified": false
+  },
+  {
+    "id": "test-pattern",
+    "name": "Test Pattern",
+    "language": "Demo",
+    "category": "Test",
+    "streamUrl": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+    "source": "test",
+    "verified": false,
+    "test": true
+  }
+]
