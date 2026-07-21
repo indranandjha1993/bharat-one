@@ -1,6 +1,12 @@
 package com.bharatone.tv.ui.home
 
 import androidx.annotation.OptIn
+import androidx.compose.animation.Crossfade
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -40,8 +46,10 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -57,6 +65,7 @@ import androidx.tv.material3.Glow
 import androidx.tv.material3.Surface
 import androidx.tv.material3.Text
 import com.bharatone.tv.data.Channel
+import com.bharatone.tv.data.preferredLanguage
 import com.bharatone.tv.ui.theme.AuroraBackground
 import com.bharatone.tv.ui.theme.BrandColor
 import com.bharatone.tv.ui.theme.categoryEyebrow
@@ -77,11 +86,20 @@ fun LiveGuideScreen(
 ) {
     val browsable = remember(channels) { channels.filter { !it.test && it.isPlayable } }
     val items = remember(browsable) { buildFilterItems(browsable, CATEGORY_ORDER) }
-
-    var selected by remember { mutableStateOf<Filter>(Filter.All) }
-    var previewChannel by remember {
-        mutableStateOf(browsable.firstOrNull { it.id == initialFocusId } ?: browsable.firstOrNull())
+    val configLanguage = LocalConfiguration.current.locales[0].language
+    val featuredLanguage = remember(browsable, configLanguage) {
+        preferredLanguage(configLanguage, browsable.map { it.language }.toSet())
     }
+
+    // Keep the full catalog visible, but lead the preview + focus with the viewer's own
+    // channel: their last-watched, else one in their device language (region-aware).
+    val featuredChannel = remember(browsable, featuredLanguage) {
+        browsable.firstOrNull { it.id == initialFocusId }
+            ?: featuredLanguage?.let { lang -> browsable.firstOrNull { it.language == lang } }
+            ?: browsable.firstOrNull()
+    }
+    var selected by remember { mutableStateOf<Filter>(Filter.All) }
+    var previewChannel by remember { mutableStateOf(featuredChannel) }
 
     val listChannels = remember(browsable, selected) { applyFilter(browsable, selected) }
 
@@ -120,11 +138,11 @@ fun LiveGuideScreen(
             )
             Spacer(Modifier.width(28.dp))
             Column(Modifier.fillMaxSize()) {
-                PreviewPane(previewChannel, preview)
+                PreviewPane(previewChannel, preview, featuredLanguage)
                 Spacer(Modifier.height(18.dp))
                 ChannelGrid(
                     channels = listChannels,
-                    focusId = initialFocusId,
+                    focusId = featuredChannel?.id,
                     onFocused = { previewChannel = it },
                     onClick = onChannelClick,
                 )
@@ -200,14 +218,19 @@ private fun CategoryRow(item: FilterItem.Chip, selected: Boolean, onSelect: () -
 
 @OptIn(UnstableApi::class)
 @Composable
-private fun PreviewPane(channel: Channel?, player: ExoPlayer) {
+private fun PreviewPane(channel: Channel?, player: ExoPlayer, featuredLanguage: String?) {
+    val featured = channel != null && channel.language == featuredLanguage
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .height(300.dp)
             .clip(PreviewShape)
             .background(channel?.let { tileBrush(it.id) } ?: Brush.linearGradient(listOf(BrandColor.Surface, BrandColor.Ink)))
-            .border(1.dp, Color.White.copy(alpha = 0.10f), PreviewShape),
+            .border(
+                width = if (featured) 2.dp else 1.dp,
+                color = if (featured) BrandColor.SaffronGold.copy(alpha = 0.85f) else Color.White.copy(alpha = 0.10f),
+                shape = PreviewShape,
+            ),
     ) {
         AndroidView(
             modifier = Modifier.fillMaxSize(),
@@ -225,24 +248,66 @@ private fun PreviewPane(channel: Channel?, player: ExoPlayer) {
                 Brush.verticalGradient(0.35f to Color.Transparent, 1f to Color.Black.copy(alpha = 0.78f)),
             ),
         )
-        if (channel != null) {
-            val (native, latin) = categoryEyebrow(channel.category)
-            Column(
-                modifier = Modifier.align(Alignment.BottomStart).padding(28.dp),
-                verticalArrangement = Arrangement.spacedBy(6.dp),
+
+        if (featured && channel != null) {
+            Row(
+                modifier = Modifier
+                    .align(Alignment.TopStart)
+                    .padding(20.dp)
+                    .clip(RoundedCornerShape(50))
+                    .background(BrandColor.SaffronGold)
+                    .padding(horizontal = 14.dp, vertical = 7.dp),
+                verticalAlignment = Alignment.CenterVertically,
             ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Box(Modifier.size(9.dp).clip(CircleShape).background(BrandColor.LiveRed))
-                    Spacer(Modifier.width(8.dp))
-                    Text("LIVE", color = Color.White, fontSize = 12.sp, fontWeight = FontWeight.Bold, letterSpacing = 2.sp)
-                    Spacer(Modifier.width(12.dp))
-                    Text("$native · $latin", color = BrandColor.SaffronGold, fontSize = 13.sp, fontWeight = FontWeight.Bold, letterSpacing = 2.sp)
+                Text("★", color = BrandColor.Ink, fontSize = 13.sp)
+                Spacer(Modifier.width(7.dp))
+                Text(
+                    "FEATURED FOR YOU · ${channel.language.uppercase()}",
+                    color = BrandColor.Ink,
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Black,
+                    letterSpacing = 1.sp,
+                )
+            }
+        }
+
+        Crossfade(
+            targetState = channel,
+            animationSpec = tween(280),
+            modifier = Modifier.align(Alignment.BottomStart),
+            label = "preview-info",
+        ) { current ->
+            if (current != null) {
+                val (native, latin) = categoryEyebrow(current.category)
+                Column(
+                    modifier = Modifier.padding(28.dp),
+                    verticalArrangement = Arrangement.spacedBy(6.dp),
+                ) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        PulsingDot(BrandColor.LiveRed, 9.dp)
+                        Spacer(Modifier.width(8.dp))
+                        Text("LIVE", color = Color.White, fontSize = 12.sp, fontWeight = FontWeight.Bold, letterSpacing = 2.sp)
+                        Spacer(Modifier.width(12.dp))
+                        Text("$native · $latin", color = BrandColor.SaffronGold, fontSize = 13.sp, fontWeight = FontWeight.Bold, letterSpacing = 2.sp)
+                    }
+                    Text(current.name, color = Color.White, fontSize = 40.sp, fontWeight = FontWeight.Black)
+                    Text("${current.language} · Public broadcaster    ▶  OK to watch full screen", color = BrandColor.TextHi.copy(alpha = 0.82f), fontSize = 15.sp)
                 }
-                Text(channel.name, color = Color.White, fontSize = 40.sp, fontWeight = FontWeight.Black)
-                Text("${channel.language} · Public broadcaster    ▶  OK to watch full screen", color = BrandColor.TextHi.copy(alpha = 0.82f), fontSize = 15.sp)
             }
         }
     }
+}
+
+@Composable
+private fun PulsingDot(color: Color, size: Dp) {
+    val transition = rememberInfiniteTransition(label = "live-dot")
+    val alpha by transition.animateFloat(
+        initialValue = 1f,
+        targetValue = 0.35f,
+        animationSpec = infiniteRepeatable(tween(900), RepeatMode.Reverse),
+        label = "alpha",
+    )
+    Box(Modifier.size(size).clip(CircleShape).background(color.copy(alpha = alpha)))
 }
 
 @Composable

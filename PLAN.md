@@ -41,8 +41,9 @@ This is the "wow" the whole project is about.
 - ✅ **Cinematic Spotlight**: focus-driven hero, aurora gradient-mesh background, live clock + count, glass filter rail
 - ✅ **Easy filtering** by genre and by language (each language chip shows its own script)
 - ✅ **Live TV Guide** (per feedback — make it feel like a set-top box, not an app): left category column that switches instantly as you arrow through it, a live preview pane that auto-plays the focused channel, channel grid, OK → fullscreen. Verified category-switch + live preview + fullscreen on emulator.
-- ⬜ Subtle animations (focus/preview crossfade) + region/language-aware featured banner
-- ⬜ Bundle a display typeface (Roboto for now; must be a bundled font — no Google Fonts, since Fire TV lacks Play Services)
+- ✅ Subtle animations: pulsing LIVE dot + crossfade on the preview
+- ✅ Region/language-aware "Featured for you" banner — leads the preview/focus with a channel in the viewer's device language (declared `locales_config`, read from live config). Verified end-to-end for English; mapping unit-tested.
+- ✅ Bundled a TV-readable typeface — **Poppins** (Latin + Devanagari, Indian foundry); other Indic scripts fall back to Noto. Verified no tofu.
 - ⬜ Real app icon + TV banner art (placeholders in place)
 
 **Exit criteria:** it looks and feels like a flagship OTT app, not a demo. Verified on emulator: Cinematic Spotlight home, language/genre filtering, and playback all working.
