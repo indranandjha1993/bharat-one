@@ -37,7 +37,7 @@ This is the "wow" the whole project is about.
 - ✅ Signature: broadcast tiles, each wearing its language's own script (हिं / বাং / த …), bilingual row labels, tricolor rule, live count
 - ✅ Smooth focus (scale 1.06 + saffron border + glow); fixed header with rows scrolling under it
 - ✅ Custom player overlay: LIVE bug + channel name, "Tuning in…" / "off air" states
-- ⬜ D-pad channel up/down inside the player
+- ✅ D-pad channel up/down inside the player (surf without leaving playback)
 - ⬜ Hero/spotlight band (optional — header + tiles already carry the identity)
 - ⬜ Bundle a display typeface (Roboto for now; must be a bundled font — no Google Fonts, since Fire TV lacks Play Services)
 - ⬜ Real app icon + TV banner art (placeholders in place)

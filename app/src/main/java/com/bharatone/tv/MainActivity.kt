@@ -19,6 +19,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val channels = ChannelRepository(applicationContext).load()
+        val playable = channels.filter { it.isPlayable }
 
         setContent {
             BharatOneTheme {
@@ -31,7 +32,11 @@ class MainActivity : ComponentActivity() {
                     )
                     else -> {
                         BackHandler { current = null }
-                        PlayerScreen(channel)
+                        PlayerScreen(
+                            channel = channel,
+                            playlist = playable,
+                            onSwitch = { current = it },
+                        )
                     }
                 }
             }

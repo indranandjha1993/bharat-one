@@ -2,6 +2,7 @@ package com.bharatone.tv.ui.player
 
 import androidx.annotation.OptIn
 import androidx.compose.foundation.background
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Row
@@ -14,6 +15,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -21,7 +23,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.input.key.KeyEventType
+import androidx.compose.ui.input.key.key
+import androidx.compose.ui.input.key.onPreviewKeyEvent
+import androidx.compose.ui.input.key.type
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -42,7 +51,7 @@ private enum class PlaybackStatus { Tuning, Playing, OffAir }
 
 @OptIn(UnstableApi::class)
 @Composable
-fun PlayerScreen(channel: Channel) {
+fun PlayerScreen(channel: Channel, playlist: List<Channel>, onSwitch: (Channel) -> Unit) {
     val context = LocalContext.current
     var status by remember(channel.id) { mutableStateOf(PlaybackStatus.Tuning) }
 
@@ -71,17 +80,35 @@ fun PlayerScreen(channel: Channel) {
         }
     }
 
+    val focusRequester = remember { FocusRequester() }
+    LaunchedEffect(Unit) { runCatching { focusRequester.requestFocus() } }
+    val index = playlist.indexOfFirst { it.id == channel.id }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black),
+            .background(Color.Black)
+            .focusRequester(focusRequester)
+            .focusable()
+            .onPreviewKeyEvent { event ->
+                if (event.type != KeyEventType.KeyDown || index < 0 || playlist.isEmpty()) return@onPreviewKeyEvent false
+                when (event.key) {
+                    Key.DirectionUp -> {
+                        onSwitch(playlist[(index - 1 + playlist.size) % playlist.size]); true
+                    }
+                    Key.DirectionDown -> {
+                        onSwitch(playlist[(index + 1) % playlist.size]); true
+                    }
+                    else -> false
+                }
+            },
     ) {
         AndroidView(
             modifier = Modifier.fillMaxSize(),
             factory = { ctx ->
                 PlayerView(ctx).apply {
                     this.player = player
-                    useController = true
+                    useController = false
                     keepScreenOn = true
                 }
             },
@@ -95,6 +122,15 @@ fun PlayerScreen(channel: Channel) {
                 modifier = Modifier.align(Alignment.TopStart).padding(28.dp),
             )
         }
+
+        Text(
+            text = "▲ ▼  change channel     ◀ Back  all channels",
+            color = Color.White.copy(alpha = 0.55f),
+            fontSize = 13.sp,
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(bottom = 28.dp),
+        )
     }
 }
 
