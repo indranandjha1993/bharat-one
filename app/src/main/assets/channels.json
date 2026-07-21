@@ -4,7 +4,7 @@
     "name": "DD News",
     "language": "Hindi",
     "category": "News",
-    "streamUrl": "https://m-c048-j2apps.s.llnwi.net/hls/0182.DDNews.in.m3u8",
+    "streamUrl": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/0811cd8c37ca4c409d5385a6cd2fa18b/index.m3u8",
     "source": "community",
     "verified": false
   },
@@ -13,8 +13,8 @@
     "name": "DD India",
     "language": "English",
     "category": "News",
-    "streamUrl": "",
-    "source": "prasar-bharati",
+    "streamUrl": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/ceda14583477426aa162a65392d8ea07/index.m3u8",
+    "source": "community",
     "verified": false
   },
   {
@@ -22,8 +22,8 @@
     "name": "DD National",
     "language": "Hindi",
     "category": "National",
-    "streamUrl": "",
-    "source": "prasar-bharati",
+    "streamUrl": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/40492a64c1db4a1385ba1a397d357d3a/index.m3u8",
+    "source": "community",
     "verified": false
   },
   {
@@ -31,8 +31,8 @@
     "name": "DD Sports",
     "language": "Hindi",
     "category": "National",
-    "streamUrl": "",
-    "source": "prasar-bharati",
+    "streamUrl": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
+    "source": "community",
     "verified": false
   },
   {
@@ -40,17 +40,17 @@
     "name": "DD Kisan",
     "language": "Hindi",
     "category": "National",
-    "streamUrl": "",
-    "source": "prasar-bharati",
+    "streamUrl": "https://cdn-6.pishow.tv/live/9/master.m3u8",
+    "source": "community",
     "verified": false
   },
   {
-    "id": "dd-bharati",
-    "name": "DD Bharati",
-    "language": "Hindi",
+    "id": "dd-urdu",
+    "name": "DD Urdu",
+    "language": "Urdu",
     "category": "National",
-    "streamUrl": "",
-    "source": "prasar-bharati",
+    "streamUrl": "https://cdn-4.pishow.tv/live/8/master.m3u8",
+    "source": "community",
     "verified": false
   },
   {
@@ -58,7 +58,7 @@
     "name": "Sansad TV",
     "language": "Hindi",
     "category": "Sansad",
-    "streamUrl": "",
+    "streamUrl": "https://d2lk5u59tns74c.cloudfront.net/out/v1/fff8f20221d5456e8922e689d71dedc3/index.m3u8",
     "source": "nic",
     "verified": false
   },
@@ -67,8 +67,8 @@
     "name": "DD Bangla",
     "language": "Bengali",
     "category": "Regional",
-    "streamUrl": "",
-    "source": "prasar-bharati",
+    "streamUrl": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/7ff57cc9046b4c188b51a0d506f36e7f/index.m3u8",
+    "source": "community",
     "verified": false
   },
   {
@@ -76,8 +76,8 @@
     "name": "DD Sahyadri",
     "language": "Marathi",
     "category": "Regional",
-    "streamUrl": "",
-    "source": "prasar-bharati",
+    "streamUrl": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/66dcc3ebe182447ba42837e746cf0c7c/index.m3u8",
+    "source": "community",
     "verified": false
   },
   {
@@ -85,8 +85,8 @@
     "name": "DD Chandana",
     "language": "Kannada",
     "category": "Regional",
-    "streamUrl": "",
-    "source": "prasar-bharati",
+    "streamUrl": "https://d2lk5u59tns74c.cloudfront.net/out/v1/0c980455d2fb4b69bcc6235745ee6039/index.m3u8",
+    "source": "community",
     "verified": false
   },
   {
@@ -94,8 +94,8 @@
     "name": "DD Saptagiri",
     "language": "Telugu",
     "category": "Regional",
-    "streamUrl": "",
-    "source": "prasar-bharati",
+    "streamUrl": "https://d2lk5u59tns74c.cloudfront.net/out/v1/26e915d6d12b4a06822c5e33c088ed56/index.m3u8",
+    "source": "community",
     "verified": false
   },
   {
@@ -103,15 +103,24 @@
     "name": "DD Malayalam",
     "language": "Malayalam",
     "category": "Regional",
-    "streamUrl": "",
-    "source": "prasar-bharati",
+    "streamUrl": "https://d2lk5u59tns74c.cloudfront.net/out/v1/c313674ffced4c9a90f1bba436df2b9b/index.m3u8",
+    "source": "community",
     "verified": false
   },
   {
-    "id": "dd-podhigai",
-    "name": "DD Podhigai",
+    "id": "dd-tamil",
+    "name": "DD Tamil",
     "language": "Tamil",
     "category": "Regional",
+    "streamUrl": "https://d2lk5u59tns74c.cloudfront.net/out/v1/abf46b14847e45499f4a47f3a9afe93d/index.m3u8",
+    "source": "community",
+    "verified": false
+  },
+  {
+    "id": "dd-bharati",
+    "name": "DD Bharati",
+    "language": "Hindi",
+    "category": "National",
     "streamUrl": "",
     "source": "prasar-bharati",
     "verified": false

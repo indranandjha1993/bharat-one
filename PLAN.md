@@ -21,14 +21,15 @@ Goal: a real, openable Android TV project + organized context so future work is 
 
 **Exit criteria:** app launches on a TV emulator, shows the channel grid, and the TEST channel plays.
 
-## Phase 1 — Real content wired up ⬜
-- ⬜ Verify which DD/Sansad HLS URLs actually resolve today; fill `channels.json` (`verified` flags honest)
-- ⬜ Group channels (National · News · Regional · Sansad) into rows on Home
-- ⬜ Channel logos/thumbnails (bundled or hosted); graceful placeholder
-- ⬜ Handle dead streams gracefully (error state + retry, don't crash)
-- ⬜ Sansad TV via the NIC public webcast as the guaranteed-clean channel
+## Phase 1 — Real content wired up 🚧
+- ✅ Verify which DD/Sansad HLS URLs actually resolve today; fill `channels.json` (13 CloudFront feeds confirmed HTTP 200, `verified:false` since not officially granted)
+- ✅ Group channels (National · News · Regional · Sansad) into rows on Home
+- ✅ Handle dead streams gracefully (error overlay instead of black screen)
+- ⬜ Retry action on the error overlay (currently Back-only)
+- ⬜ Channel logos/thumbnails — folded into Phase 2 (branded monogram cards)
+- ⬜ Confirm each regional stream plays (spot-checked DD News; rest resolve but unplayed)
 
-**Exit criteria:** a real lineup of DD + Sansad channels browsable and playable.
+**Exit criteria:** a real lineup of DD + Sansad channels browsable and playable. ✅ DD News verified playing on the emulator.
 
 ## Phase 2 — World-class UX pass ⬜
 This is the "wow" the whole project is about.
