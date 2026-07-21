@@ -47,11 +47,13 @@ This is the "wow" the whole project is about.
 ## Phase 3 — Robustness 🚧
 - ✅ Network loss + reconnect handling (5 backoff retries → "Reconnecting", then "off air" with OK-to-retry). Verified with a dead-URL stream: 6 attempts logged, OK triggers a fresh attempt, good URL recovers.
 - ✅ ExoPlayer tuning (live-tuned DefaultLoadControl buffers for faster start/recovery)
-- ⬜ Remember last-watched / continue on relaunch
-- ⬜ Analytics-lite (local logging) to see which channels are used
-- ⬜ Basic tests (repository parse, pure helpers)
+- ✅ Remember last-watched / continue on relaunch (SharedPreferences → Home focuses the last channel; verified across a force-stop + relaunch)
+- ✅ Basic tests (Channel parsing + playable flag) — `./gradlew testDebugUnitTest` green
+- ⬜ Analytics-lite (local logging) — deferred, low priority
 
 Note: couldn't sever the emulator's NAT (production image, no root) so live network-drop wasn't exercised end-to-end; the recovery path is the same `prepare()` that a dead→good URL swap confirmed.
+
+**Phase 3 is effectively done** (only optional analytics remains).
 
 ## Phase 4 — Remote manifest (optional) ⬜
 - ⬜ Host `channels.json` (any static host); fetch at startup, fall back to bundled

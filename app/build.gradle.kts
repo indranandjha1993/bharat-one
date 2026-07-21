@@ -60,5 +60,8 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.coil.compose)
 
+    testImplementation(libs.junit)
+    testImplementation(libs.kotlinx.serialization.json)
+
     debugImplementation(libs.androidx.ui.tooling)
 }

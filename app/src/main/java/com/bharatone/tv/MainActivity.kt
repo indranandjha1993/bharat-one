@@ -10,6 +10,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import com.bharatone.tv.data.Channel
 import com.bharatone.tv.data.ChannelRepository
+import com.bharatone.tv.data.Preferences
 import com.bharatone.tv.ui.home.HomeScreen
 import com.bharatone.tv.ui.player.PlayerScreen
 import com.bharatone.tv.ui.theme.BharatOneTheme
@@ -20,22 +21,31 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         val channels = ChannelRepository(applicationContext).load()
         val playable = channels.filter { it.isPlayable }
+        val preferences = Preferences(applicationContext)
 
         setContent {
             BharatOneTheme {
                 var current by remember { mutableStateOf<Channel?>(null) }
+                var lastChannelId by remember { mutableStateOf(preferences.lastChannelId) }
+
+                fun open(channel: Channel) {
+                    current = channel
+                    lastChannelId = channel.id
+                    preferences.lastChannelId = channel.id
+                }
 
                 when (val channel = current) {
                     null -> HomeScreen(
                         channels = channels,
-                        onChannelClick = { if (it.isPlayable) current = it },
+                        initialFocusId = lastChannelId,
+                        onChannelClick = { if (it.isPlayable) open(it) },
                     )
                     else -> {
                         BackHandler { current = null }
                         PlayerScreen(
                             channel = channel,
                             playlist = playable,
-                            onSwitch = { current = it },
+                            onSwitch = ::open,
                         )
                     }
                 }

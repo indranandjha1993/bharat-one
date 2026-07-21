@@ -47,14 +47,19 @@ private val CATEGORY_ORDER = listOf("News", "National", "Sansad", "Regional", "T
 private val TileShape = RoundedCornerShape(16.dp)
 
 @Composable
-fun HomeScreen(channels: List<Channel>, onChannelClick: (Channel) -> Unit) {
+fun HomeScreen(
+    channels: List<Channel>,
+    initialFocusId: String? = null,
+    onChannelClick: (Channel) -> Unit,
+) {
     val rows = channels
         .groupBy { it.category.ifBlank { "Channels" } }
         .toList()
         .sortedBy { (category, _) -> CATEGORY_ORDER.indexOf(category).takeIf { it >= 0 } ?: Int.MAX_VALUE }
 
-    val firstTileFocus = remember { FocusRequester() }
-    LaunchedEffect(Unit) { runCatching { firstTileFocus.requestFocus() } }
+    val focusId = initialFocusId ?: channels.firstOrNull { it.isPlayable }?.id
+    val focusTile = remember { FocusRequester() }
+    LaunchedEffect(Unit) { runCatching { focusTile.requestFocus() } }
 
     Column(
         modifier = Modifier
@@ -69,15 +74,14 @@ fun HomeScreen(channels: List<Channel>, onChannelClick: (Channel) -> Unit) {
             verticalArrangement = Arrangement.spacedBy(30.dp),
             contentPadding = PaddingValues(bottom = 48.dp),
         ) {
-            rows.forEachIndexed { rowIndex, (category, rowChannels) ->
+            rows.forEach { (category, rowChannels) ->
                 item { RowEyebrow(category) }
                 item {
                     LazyRow(horizontalArrangement = Arrangement.spacedBy(20.dp)) {
                         items(rowChannels, key = { it.id }) { channel ->
-                            val focusable = rowIndex == 0 && channel.id == rowChannels.first().id
                             BroadcastTile(
                                 channel = channel,
-                                modifier = if (focusable) Modifier.focusRequester(firstTileFocus) else Modifier,
+                                modifier = if (channel.id == focusId) Modifier.focusRequester(focusTile) else Modifier,
                                 onClick = { onChannelClick(channel) },
                             )
                         }
