@@ -31,16 +31,18 @@ Goal: a real, openable Android TV project + organized context so future work is 
 
 **Exit criteria:** a real lineup of DD + Sansad channels browsable and playable. ✅ DD News verified playing on the emulator.
 
-## Phase 2 — World-class UX pass ⬜
+## Phase 2 — World-class UX pass 🚧
 This is the "wow" the whole project is about.
-- ⬜ Design system: color, type scale, spacing, focus treatment (see `frontend-design` guidance)
-- ⬜ Hero/spotlight area on Home (featured channel, live now)
-- ⬜ Smooth focus animations (scale/elevation) that stay light on Fire Stick hardware
-- ⬜ Custom player overlay: channel name, now-playing, controls, D-pad channel up/down
-- ⬜ Splash + app icon + real TV banner (320×180)
-- ⬜ Loading/buffering states that feel premium, not janky
+- ✅ Design system: warm-ink base, saffron-gold + broadcast-red accents, focus scale + glow (`ui/theme/Brand.kt`)
+- ✅ Signature: broadcast tiles, each wearing its language's own script (हिं / বাং / த …), bilingual row labels, tricolor rule, live count
+- ✅ Smooth focus (scale 1.06 + saffron border + glow); fixed header with rows scrolling under it
+- ✅ Custom player overlay: LIVE bug + channel name, "Tuning in…" / "off air" states
+- ⬜ D-pad channel up/down inside the player
+- ⬜ Hero/spotlight band (optional — header + tiles already carry the identity)
+- ⬜ Bundle a display typeface (Roboto for now; must be a bundled font — no Google Fonts, since Fire TV lacks Play Services)
+- ⬜ Real app icon + TV banner art (placeholders in place)
 
-**Exit criteria:** it looks and feels like a flagship OTT app, not a demo.
+**Exit criteria:** it looks and feels like a flagship OTT app, not a demo. Verified on emulator: home + player both look premium.
 
 ## Phase 3 — Robustness ⬜
 - ⬜ Remember last-watched / continue on relaunch
