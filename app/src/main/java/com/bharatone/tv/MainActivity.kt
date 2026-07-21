@@ -11,7 +11,7 @@ import androidx.compose.runtime.setValue
 import com.bharatone.tv.data.Channel
 import com.bharatone.tv.data.ChannelRepository
 import com.bharatone.tv.data.Preferences
-import com.bharatone.tv.ui.home.HomeScreen
+import com.bharatone.tv.ui.home.LiveGuideScreen
 import com.bharatone.tv.ui.player.PlayerScreen
 import com.bharatone.tv.ui.theme.BharatOneTheme
 
@@ -35,7 +35,7 @@ class MainActivity : ComponentActivity() {
                 }
 
                 when (val channel = current) {
-                    null -> HomeScreen(
+                    null -> LiveGuideScreen(
                         channels = channels,
                         initialFocusId = lastChannelId,
                         onChannelClick = { if (it.isPlayable) open(it) },

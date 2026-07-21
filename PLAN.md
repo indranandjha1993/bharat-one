@@ -39,7 +39,9 @@ This is the "wow" the whole project is about.
 - ✅ Custom player overlay: LIVE bug + channel name, "Tuning in…" / "off air" states
 - ✅ D-pad channel up/down inside the player (surf without leaving playback)
 - ✅ **Cinematic Spotlight**: focus-driven hero, aurora gradient-mesh background, live clock + count, glass filter rail
-- ✅ **Easy filtering** by genre and by language (each language chip shows its own script); hero + rows update instantly
+- ✅ **Easy filtering** by genre and by language (each language chip shows its own script)
+- ✅ **Live TV Guide** (per feedback — make it feel like a set-top box, not an app): left category column that switches instantly as you arrow through it, a live preview pane that auto-plays the focused channel, channel grid, OK → fullscreen. Verified category-switch + live preview + fullscreen on emulator.
+- ⬜ Subtle animations (focus/preview crossfade) + region/language-aware featured banner
 - ⬜ Bundle a display typeface (Roboto for now; must be a bundled font — no Google Fonts, since Fire TV lacks Play Services)
 - ⬜ Real app icon + TV banner art (placeholders in place)
 
