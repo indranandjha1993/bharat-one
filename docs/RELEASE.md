@@ -55,7 +55,9 @@ then auto-submits a new build for review. CI skips docs-only pushes, so those ne
 deploy. It builds a signed APK with an auto-incrementing versionCode
 (from the commit count) and runs `scripts/amazon_submit.sh`, which drives Amazon's
 **App Submission API**: get token → open/create an edit → replace the APK →
-validate → commit (submit for review).
+set release notes → validate → commit (submit for review). Amazon rejects
+validation if any listing has empty "recent changes", so the script fills them
+from the latest commit subject (`RELEASE_NOTES`).
 
 **Important truths:**
 - "Deploy" = *submit for review*. Amazon reviews every version; it goes live after

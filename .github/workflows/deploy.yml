@@ -75,6 +75,7 @@ jobs:
             echo "Add AMAZON_CLIENT_ID / AMAZON_CLIENT_SECRET / AMAZON_APP_ID secrets to enable auto-submit."
             exit 0
           fi
+          export RELEASE_NOTES="$(git log -1 --pretty=%s)"
           chmod +x scripts/amazon_submit.sh
           scripts/amazon_submit.sh app/build/outputs/apk/release/app-release.apk
 

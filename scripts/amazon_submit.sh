@@ -56,6 +56,19 @@ else
   echo "    uploaded new apk"
 fi
 
+# Amazon requires non-empty "recent changes" on every listing before an edit can
+# be submitted. RELEASE_NOTES is set by the deploy workflow (the commit subject).
+echo "==> Setting release notes on each listing"
+NOTES="${RELEASE_NOTES:-Bug fixes and improvements.}"
+for LANG in $(curl -sf "${AUTH[@]}" "$API/edits/$EDIT_ID/listings" | jq -r '.listings | keys[]'); do
+  L_ETAG=$(etag_of "$API/edits/$EDIT_ID/listings/$LANG")
+  curl -sf "${AUTH[@]}" "$API/edits/$EDIT_ID/listings/$LANG" \
+    | jq --arg rc "$NOTES" '.recentChanges = $rc' \
+    | curl -sf "${AUTH[@]}" -H "If-Match: $L_ETAG" -H "Content-Type: application/json" \
+        -X PUT --data @- "$API/edits/$EDIT_ID/listings/$LANG" >/dev/null
+  echo "    release notes set for $LANG"
+done
+
 echo "==> Validating edit"
 curl -sf "${AUTH[@]}" -X POST "$API/edits/$EDIT_ID/validate" >/dev/null
 
