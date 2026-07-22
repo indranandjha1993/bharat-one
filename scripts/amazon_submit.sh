@@ -32,6 +32,14 @@ etag_of() { curl -s -D - -o /dev/null "${AUTH[@]}" "$1" | tr -d '\r' | awk -F': 
 echo "==> Getting current edit (create one if none is open)"
 EDIT=$(curl -s "${AUTH[@]}" "$API/edits" || true)
 EDIT_ID=$(echo "$EDIT" | jq -r '.id // empty')
+EDIT_STATUS=$(echo "$EDIT" | jq -r '.status // empty')
+# Amazon allows exactly one open edit. An IN_PROGRESS edit is ours to reuse; any
+# other status (REVIEW, SUBMITTED, ...) means a version is already in flight and
+# the edit is locked — there's nothing to do, so skip cleanly instead of failing.
+if [ -n "$EDIT_ID" ] && [ "$EDIT_STATUS" != "IN_PROGRESS" ]; then
+  echo "::notice::A version is already ${EDIT_STATUS} at Amazon — nothing to submit. Skipping."
+  exit 0
+fi
 if [ -z "$EDIT_ID" ]; then
   EDIT=$(curl -sf "${AUTH[@]}" -X POST "$API/edits")
   EDIT_ID=$(echo "$EDIT" | jq -r '.id')
