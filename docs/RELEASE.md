@@ -66,9 +66,13 @@ validate → commit (submit for review).
   trigger in `deploy.yml` to tags (`on: push: tags: ['v*']`).
 
 **One-time setup:**
-1. **Create a Login with Amazon (LWA) security profile:** developer.amazon.com →
-   Login with Amazon → Create a Security Profile. Note the **Client ID** and
-   **Client Secret**. (This is what grants API access to the Appstore.)
+1. **Enable App Submission API access and ATTACH a security profile:**
+   developer.amazon.com → **Tools & Services → API Access → App Submission API** →
+   create (or select) a security profile → click **Attach**. Grab the **Client ID /
+   Client Secret** from the profile's *Web Settings* tab.
+   ⚠️ Creating a profile via "Login with Amazon" alone is **not** enough — it must be
+   **attached to the App Submission API** on this page, or the token request returns
+   `invalid_scope` (this is exactly what tripped the first auto-deploy).
 2. Add these repo secrets (in addition to the signing ones above):
    | Secret | Value |
    |---|---|

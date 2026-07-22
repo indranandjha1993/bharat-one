@@ -79,6 +79,7 @@ jobs:
           scripts/amazon_submit.sh app/build/outputs/apk/release/app-release.apk
 
       - name: Upload signed APK artifact
+        if: always()   # keep the signed APK available even if the Amazon submit step fails
         uses: actions/upload-artifact@v4
         with:
           name: app-release
